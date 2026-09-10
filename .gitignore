@@ -13,6 +13,9 @@
 .env.local
 .env*.local
 
+# locally saved generated songs
+/generated-songs
+
 # misc
 .DS_Store
 *.pem
