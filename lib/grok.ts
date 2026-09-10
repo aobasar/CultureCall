@@ -39,12 +39,26 @@ Find only useful signals for a company-culture song brief.
 
 Do not invent facts.
 Separate public observations from assumptions.
-Return JSON only.`;
+
+Return JSON only, with exactly these top-level keys and no others:
+{
+  "company": "string",
+  "products_services": ["string"],
+  "culture_signals": ["string"],
+  "customer_value_summary": "string"
+}`;
 
   const user = `WEBSITE:\n${websiteText}\n\nPUBLIC REVIEWS:\n${reviews}`;
 
   const raw = await callGrok(system, user);
-  return JSON.parse(raw) as CompanyAnalysis;
+  const parsed = JSON.parse(raw) as Partial<CompanyAnalysis>;
+
+  return {
+    company: parsed.company ?? "Unknown company",
+    products_services: parsed.products_services ?? [],
+    culture_signals: parsed.culture_signals ?? [],
+    customer_value_summary: parsed.customer_value_summary ?? "",
+  };
 }
 
 export interface BangerBrief {
@@ -77,10 +91,38 @@ Create a concise brief for a positive internal culture song.
 
 Do not make unsupported claims.
 Do not copy copyrighted lyrics.
-Return JSON only.`;
+
+Return JSON only, with exactly these top-level keys and no others:
+{
+  "company": "string",
+  "objective": "string",
+  "audience": "string",
+  "culture_signals": ["string"],
+  "behavior_change": "string",
+  "must_say": ["string"],
+  "story": "string",
+  "tone": "string",
+  "avoid": ["string"],
+  "song_title": "string",
+  "hook": "string (4 short lines)"
+}`;
 
   const user = `COMPANY ANALYSIS:\n${JSON.stringify(analysis)}\n\nINTERVIEW ANSWER 1:\n${answer1}\n\nINTERVIEW ANSWER 2:\n${answer2}\n\nINTERVIEW ANSWER 3:\n${answer3}`;
 
   const raw = await callGrok(system, user);
-  return JSON.parse(raw) as BangerBrief;
+  const parsed = JSON.parse(raw) as Partial<BangerBrief>;
+
+  return {
+    company: parsed.company ?? analysis.company ?? "Unknown company",
+    objective: parsed.objective ?? "",
+    audience: parsed.audience ?? "Employees",
+    culture_signals: parsed.culture_signals ?? [],
+    behavior_change: parsed.behavior_change ?? "",
+    must_say: parsed.must_say ?? [],
+    story: parsed.story ?? "",
+    tone: parsed.tone ?? "",
+    avoid: parsed.avoid ?? [],
+    song_title: parsed.song_title ?? "",
+    hook: parsed.hook ?? "",
+  };
 }
