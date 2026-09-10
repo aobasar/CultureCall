@@ -12,7 +12,7 @@ export async function generateSong(prompt: string): Promise<Buffer> {
     },
     body: JSON.stringify({
       prompt,
-      music_length_ms: 30000,
+      music_length_ms: 15000,
     }),
   });
 
