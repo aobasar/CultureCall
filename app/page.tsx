@@ -253,7 +253,7 @@ export default function Page() {
 
   return (
     <main>
-      <h1>Culture Signal</h1>
+      <h1>CultureCall</h1>
       <p className="subtitle">Public signals + a short voice interview → a Culture Banger Brief</p>
 
       {uiState === "INPUT" && (

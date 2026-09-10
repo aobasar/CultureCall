@@ -1,6 +1,6 @@
-# Culture Signal
+# CultureCall
 
-Culture Signal combines public company signals with a short voice interview to create a structured Culture Banger Brief.
+CultureCall combines public company signals with a short voice interview to create a structured Culture Banger Brief.
 
 ## Friction
 
@@ -44,6 +44,10 @@ npm run dev
 - no production voice cloning
 - no analytics
 - no deployment hardening
+
+## Sample Generated Songs
+
+See `demo-assets/` for real ElevenLabs-generated samples in different tones (fun, emotional, professional, energetic), all built from the same "Not a Ticket Number" brief.
 
 ## Note on Song Generation
 
